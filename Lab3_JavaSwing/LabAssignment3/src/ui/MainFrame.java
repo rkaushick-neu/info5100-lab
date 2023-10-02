@@ -4,6 +4,8 @@
  */
 package ui;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author rishabhkaushick
@@ -13,7 +15,7 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    public MainFrame() {        
         initComponents();
     }
 
@@ -44,10 +46,11 @@ public class MainFrame extends javax.swing.JFrame {
         submitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(700, 600));
 
         mainPanel.setBackground(new java.awt.Color(0, 153, 204));
         mainPanel.setForeground(new java.awt.Color(255, 255, 255));
+        mainPanel.setPreferredSize(new java.awt.Dimension(700, 600));
 
         titleLabel.setFont(new java.awt.Font("Arima Koshi", 1, 28)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -61,7 +64,6 @@ public class MainFrame extends javax.swing.JFrame {
         firstNameLabel.setText("First Name");
 
         firstNameTextField.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
-        firstNameTextField.setText("First Name Here");
         firstNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 firstNameTextFieldActionPerformed(evt);
@@ -73,7 +75,6 @@ public class MainFrame extends javax.swing.JFrame {
         lastNameLabel.setText("Last Name");
 
         lastNameTextField.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
-        lastNameTextField.setText("Last Name Here");
         lastNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lastNameTextFieldActionPerformed(evt);
@@ -85,15 +86,12 @@ public class MainFrame extends javax.swing.JFrame {
         ageLabel.setText("Age");
 
         ageTextField.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
-        ageTextField.setText("Age Here");
 
         emailTextField.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
-        emailTextField.setText("Email Here");
 
         messageTextArea.setColumns(20);
         messageTextArea.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
         messageTextArea.setRows(5);
-        messageTextArea.setText("Message Here");
         jScrollPane1.setViewportView(messageTextArea);
 
         emailLabel.setFont(new java.awt.Font("Annai MN", 0, 14)); // NOI18N
@@ -161,23 +159,23 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameLabel)
                     .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lastNameLabel)
                     .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ageLabel)
                     .addComponent(ageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(emailLabel))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(messageLabel))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(imageLabel)
                     .addComponent(imageLabelInProgress))
@@ -194,7 +192,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
         );
 
         pack();
@@ -215,10 +213,11 @@ public class MainFrame extends javax.swing.JFrame {
                         +"Name: "+firstNameTextField.getText()+" "+lastNameTextField.getText()+"\n"
                         +"Age: "+ageTextField.getText()+"\n"
                         +"Email:"+emailTextField.getText()+"\n"
-                        +"Message: "+messageTextArea.getText();
+                        +"Message: "+"\n"+messageTextArea.getText();
                 ;
         System.out.println(infoMessage); // logging message for debugging
-//        add the popup here
+//      add the popup here
+        JOptionPane.showMessageDialog(this, infoMessage, "Your Data Has Been Submitted!", HEIGHT);
     }//GEN-LAST:event_submitButtonActionPerformed
 
     /**
