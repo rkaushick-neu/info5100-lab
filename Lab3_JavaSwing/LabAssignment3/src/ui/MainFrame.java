@@ -4,6 +4,7 @@
  */
 package ui;
 
+import java.awt.Image;
 import java.io.File;
 import javax.swing.JOptionPane;
 import java.util.regex.*;
@@ -263,10 +264,18 @@ public class MainFrame extends javax.swing.JFrame {
         // Creating an ImageIcon variable to display the icon (if the user selects an image)
         ImageIcon profilePicIcon = new ImageIcon();
         
-        // If the user does not select an icon - it will display either the success icon or fail icon
-        // based on the validations
+        // If the user does not select an icon - it will display either the success icon or fail icon based on the validations
         ImageIcon successIcon = new ImageIcon(System.getProperty("user.dir")+"/src/ui/success_image.png");
+        // scaling the success icon
+        Image successImage = successIcon.getImage();
+        successImage = successImage.getScaledInstance(120, 120, WIDTH);
+        successIcon = new ImageIcon(successImage);
+        
         ImageIcon errorIcon = new ImageIcon(System.getProperty("user.dir")+"/src/ui/error_image.png");
+        // similarly scaling the failure icon
+        Image errorImage = errorIcon.getImage();
+        errorImage = errorImage.getScaledInstance(120, 120, WIDTH);
+        errorIcon = new ImageIcon(errorImage);
         
         try{
             // First Name Validations
