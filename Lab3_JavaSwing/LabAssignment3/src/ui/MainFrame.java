@@ -346,6 +346,10 @@ public class MainFrame extends javax.swing.JFrame {
                 // this means the user has uploaded an image
                 // creating an icon out of the image file:
                 profilePicIcon = new ImageIcon(this.profilePicture.getAbsolutePath());
+                // scaling the profile picture icon
+                Image profilePicImage = profilePicIcon.getImage();
+                profilePicImage = profilePicImage.getScaledInstance(120, 120, WIDTH);
+                profilePicIcon = new ImageIcon(profilePicImage);
             }
             
             
