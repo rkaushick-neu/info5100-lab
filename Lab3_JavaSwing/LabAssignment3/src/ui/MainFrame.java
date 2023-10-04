@@ -7,6 +7,7 @@ package ui;
 import java.io.File;
 import javax.swing.JOptionPane;
 import java.util.regex.*;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -246,14 +247,27 @@ public class MainFrame extends javax.swing.JFrame {
     
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
-        // adding error handling here
+        // adding error handling string messages here
         String popupTitle="", popupMessage="";
+        
+        // Using Regex to Validate the User Inputs
         String regexString = "[(')a-zA-z]*";
         String numericString = "[0-9]*";
         String emailString = "([a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*)";
         Pattern regexNamePattern = Pattern.compile(regexString);
         Pattern regexAgePattern = Pattern.compile(numericString);
         Pattern regexEmailPattern = Pattern.compile(emailString);
+        
+        Boolean errorFlag = false;
+        
+        // Creating an ImageIcon variable to display the icon (if the user selects an image)
+        ImageIcon profilePicIcon = new ImageIcon();
+        
+        // If the user does not select an icon - it will display either the success icon or fail icon
+        // based on the validations
+        ImageIcon successIcon = new ImageIcon(System.getProperty("user.dir")+"/src/ui/success_image.png");
+        ImageIcon errorIcon = new ImageIcon(System.getProperty("user.dir")+"/src/ui/error_image.png");
+        
         try{
             // First Name Validations
             // testing if the first name is blank
@@ -261,11 +275,13 @@ public class MainFrame extends javax.swing.JFrame {
                 // first name is mandatory - popup should say that it is required.
                 popupTitle = updatePopupTitle(popupTitle, "First Name Required!");
                 popupMessage = updatePopupMessage(popupMessage, "Please enter your first name to proceed.");
+                errorFlag = true;
             } // testing if first name contains any special characters
             else if((!regexNamePattern.matcher(firstNameTextField.getText()).matches())){
                 // if first name is not blank - it should not have any special characters
                 popupTitle = updatePopupTitle(popupTitle, "Special Characters/ Numbers Not Allowed in First Name");
                 popupMessage = updatePopupMessage(popupMessage, "Sorry, special characters or numbers are not allowed in the First Name.");
+                errorFlag = true;
             }
             
             // Last Name Validations
@@ -273,25 +289,30 @@ public class MainFrame extends javax.swing.JFrame {
             if(!regexNamePattern.matcher(lastNameTextField.getText()).matches()){
                 popupTitle = updatePopupTitle(popupTitle, "Numbers / Special Characters Not Allowed in Last Name");
                 popupMessage = updatePopupMessage(popupMessage, "Sorry, special characters or numbers are not allowed in the Last Name.");
+                errorFlag = true;
             }
             
             // Age validations
             if(ageTextField.getText().isBlank()){
                 popupTitle = updatePopupTitle(popupTitle, "Age is Required!");
                 popupMessage = updatePopupMessage(popupMessage, "Please enter your age to proceed.");
+                errorFlag = true;
             }
             else if(!regexAgePattern.matcher(ageTextField.getText()).matches()){
                 // not a number
                 popupTitle = updatePopupTitle(popupTitle, "Age Should a Numeric Value");
                 popupMessage = updatePopupMessage(popupMessage, "Please enter the value of your age in numeric values between 1 - 130");
+                errorFlag = true;
             } else if (ageTextField.getText().equals("0")){
                 // age cannot be 0
                 popupTitle = updatePopupTitle(popupTitle, "Age Cannot be 0");
                 popupMessage = updatePopupMessage(popupMessage, "Please enter a valid age between 1 - 130");
+                errorFlag = true;
             } else if (Integer.parseInt(ageTextField.getText()) > 130){
                 // age greater than 130 is not possible - update the error message
                 popupTitle = updatePopupTitle(popupTitle, "Too Old!!");
                 popupMessage = updatePopupMessage(popupMessage, "The Age you entered is too old to live, please re-check and enter your real age to proceed.");
+                errorFlag = true;
             }
             
             
@@ -299,35 +320,58 @@ public class MainFrame extends javax.swing.JFrame {
             if(emailTextField.getText().isBlank()){
                 popupTitle = updatePopupTitle(popupTitle, "Email is Required!");
                 popupMessage = updatePopupMessage(popupMessage, "Please enter your email to proceed.");
+                errorFlag = true;
             } else if(!regexEmailPattern.matcher(emailTextField.getText()).matches()){
                 // test if email matches the regex pattern
                 popupTitle = updatePopupTitle(popupTitle, "Invalid Email Address!");
                 popupMessage = updatePopupMessage(popupMessage, "Please enter a valid email address to proceed.");
+                errorFlag = true;
             }
             // any tests for messages? no I don't think so
             
             // Test if the selected photo is an image - jpg, jpeg, png, heic
-            if(this.profilePicName.isBlank()){
+            if(this.profilePicName.isBlank() || this.profilePicName.equals("No Image Uploaded")){
                 // this means that the user has not uploaded any image
                 this.profilePicName = "No Image Uploaded";
+            } else {
+                // this means the user has uploaded an image
+                // creating an icon out of the image file:
+                profilePicIcon = new ImageIcon(this.profilePicture.getAbsolutePath());
             }
-            if(popupTitle.equals("") && popupMessage.equals("")){
+            
+            
+            if(popupTitle.equals("") && popupMessage.equals("") && (!errorFlag)){
                 popupTitle = "Submitted!";
                 popupMessage = "Your entry has been recorded!"+"\n"
                         +"Name: "+firstNameTextField.getText()+" "+lastNameTextField.getText()+"\n"
                         +"Age: "+ageTextField.getText()+"\n"
                         +"Email:"+emailTextField.getText()+"\n"
                         +"Message: "+"\n"+messageTextArea.getText()+"\n"
-                        +"Image Attached:"+this.profilePicName;
+                        +"Image:"+this.profilePicName+"\n";
                 
             }
             // logging message for debugging
             System.out.println("Popup Title: "+popupTitle);
             System.out.println("Popup Body: "+popupMessage);
-
-            JOptionPane.showMessageDialog(this, popupMessage, popupTitle, HEIGHT);
+            if(errorFlag){
+                // this means there is an error - so displaying the error message with the error icon
+                // System.out.println(System.getProperty("user.dir")+"/src/ui/error_image.jpeg"); // debug
+                JOptionPane.showMessageDialog(this, popupMessage, popupTitle, HEIGHT, errorIcon);                
+            } else {
+                // no error
+                if(this.profilePicName.isBlank() || this.profilePicName.equals("No Image Uploaded")){
+                    // no profile picture
+                    // display the details with the success icon
+                    // System.out.println(System.getProperty("user.dir")+"/src/ui/success_image.png");
+                    JOptionPane.showMessageDialog(this, popupMessage, popupTitle, HEIGHT, successIcon);
+                } else {
+                    // profile picture loaded by the user
+                    // System.out.println(this.profilePicture.getAbsolutePath());
+                    JOptionPane.showMessageDialog(this, popupMessage, popupTitle, HEIGHT, profilePicIcon);
+                }
+            }            
         } catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Oh no, an error has occured!", "Oops!", HEIGHT);
+            JOptionPane.showMessageDialog(this, "Sorry, but there was an error while submitting! Please see the below error details:"+"\n"+e, "Oops!", HEIGHT);
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
@@ -336,18 +380,40 @@ public class MainFrame extends javax.swing.JFrame {
         JFileChooser picChooser = new JFileChooser();
         // we need to make sure that this file chooser is allowed to only select picture files
         // so we need a FileNameExtensionFilter
-        FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg", "HEIC");
+        FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg");
         picChooser.setFileFilter(imagesFilter);
         picChooser.showOpenDialog(null);
         
         try{
             File imageFile = picChooser.getSelectedFile();
-            this.profilePicture = imageFile;
-            this.profilePicName = imageFile.getName();
+            String fileAbsolutePath = imageFile.getAbsolutePath();
+//            System.out.println(fileAbsolutePath); //debug
+            String fileNameExtension = fileAbsolutePath.split("\\.")[1];
+            fileNameExtension = fileNameExtension.toLowerCase(); // in case the files extensions are in upper case.
+//            System.out.println(fileNameExtension); //debug
+            // now checking if the file which was selected was an image file
+            if ((fileNameExtension.equals("jpg")) ||
+                    (fileNameExtension.equals("png")) ||
+                    (fileNameExtension.equals("gif")) ||
+                    (fileNameExtension.equals("jpeg"))){
+                // User has selected an image
+                this.profilePicture = imageFile;
+                this.profilePicName = imageFile.getName();
+            } else{
+                // wrong file format
+                // show an error popup
+                this.profilePicName = ""; // setting it back to blank in case it was initially set before.
+                JOptionPane.showMessageDialog(this, "Please select an image file containing one of the following extensions - png, jpg, jpeg, gif", "Image File Not Selected!", HEIGHT);
+            }
+        } catch(NullPointerException npe){
+            // this exception occurs when user decides not to select any image.
+            this.profilePicName = ""; // setting it back to blank
         } catch(Exception e){
+            System.out.println("Something went wrong here - attachPicButtonActionPerformed()");
+            System.out.println(e);
+            JOptionPane.showMessageDialog(this, "Sorry, but there was an error while selecting the file. Please see the error below:"+"\n"+e, "Oops!", HEIGHT);
             
         }
-//        File f = picChooser.getSelectedFile();
     }//GEN-LAST:event_attachPicButtonActionPerformed
 
     /**
