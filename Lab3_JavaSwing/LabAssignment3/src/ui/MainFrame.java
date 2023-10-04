@@ -5,6 +5,8 @@
 package ui;
 
 import javax.swing.JOptionPane;
+import java.util.regex.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -15,7 +17,7 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {        
+    public MainFrame() {
         initComponents();
     }
 
@@ -113,6 +115,9 @@ public class MainFrame extends javax.swing.JFrame {
                 submitButtonActionPerformed(evt);
             }
         });
+
+        picFileChooser.setAcceptAllFileFilterUsed(false);
+        picFileChooser.setCurrentDirectory(new java.io.File("/Users/rishabhkaushick/Pictures"));
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -216,23 +221,90 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lastNameTextFieldActionPerformed
 
+    // helper function to update most relevant title of the popup title
+    public String updatePopupTitle(String popupTitle, String newPopupTitle){
+        if (popupTitle.equals("")){
+            //this means that this is the first error. Therefore we display a specific error message in the title
+            return newPopupTitle;
+        } else{
+            //this means that there are multiple errors in the form submission
+            return "Please Fix Below Erros:";
+        }
+    }
+    
+    // helper funtion to update all the errors present in the popup message
+    public String updatePopupMessage(String popupMessage, String newPopupMessage){
+        if(popupMessage.equals("")){
+            return newPopupMessage;
+        } else{
+            return popupMessage+"\n"+newPopupMessage;
+        }
+    }
+    
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
         // adding error handling here
         String popupTitle="", popupMessage="";
+        String regexString = "[(')a-zA-z]*";
+        String numericString = "[0-9]*";
+        String emailString = "([a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*)";
+        Pattern regexNamePattern = Pattern.compile(regexString);
+        Pattern regexAgePattern = Pattern.compile(numericString);
+        Pattern regexEmailPattern = Pattern.compile(emailString);
         try{
-            
+            // First Name Validations
             // testing if the first name is blank
             if(firstNameTextField.getText().isBlank()){
-                // first name is mandatory - so raise a popup saying that it is required.
-                popupTitle = "First Name Required!";
-                popupMessage = "Please enter your first name to proceed.";
-            }
-            else if(firstNameTextField.getText() == "ABC"){
-                // need to find how to test for special characters and numbers
+                // first name is mandatory - popup should say that it is required.
+                popupTitle = updatePopupTitle(popupTitle, "First Name Required!");
+                popupMessage = updatePopupMessage(popupMessage, "Please enter your first name to proceed.");
+            } // testing if first name contains any special characters
+            else if((!regexNamePattern.matcher(firstNameTextField.getText()).matches())){
+                // if first name is not blank - it should not have any special characters
+                popupTitle = updatePopupTitle(popupTitle, "Special Characters/ Numbers Not Allowed in First Name");
+                popupMessage = updatePopupMessage(popupMessage, "Sorry, special characters or numbers are not allowed in the First Name.");
             }
             
-            else{
+            // Last Name Validations
+            // last name cannot contain special characters as well (except for ' for names like D'Souza
+            if(!regexNamePattern.matcher(lastNameTextField.getText()).matches()){
+                popupTitle = updatePopupTitle(popupTitle, "Numbers / Special Characters Not Allowed in Last Name");
+                popupMessage = updatePopupMessage(popupMessage, "Sorry, special characters or numbers are not allowed in the Last Name.");
+            }
+            
+            // Age validations
+            if(ageTextField.getText().isBlank()){
+                popupTitle = updatePopupTitle(popupTitle, "Age is Required!");
+                popupMessage = updatePopupMessage(popupMessage, "Please enter your age to proceed.");
+            }
+            else if(!regexAgePattern.matcher(ageTextField.getText()).matches()){
+                // not a number
+                popupTitle = updatePopupTitle(popupTitle, "Age Should a Numeric Value");
+                popupMessage = updatePopupMessage(popupMessage, "Please enter the value of your age in numeric values between 1 - 130");
+            } else if (ageTextField.getText().equals("0")){
+                // age cannot be 0
+                popupTitle = updatePopupTitle(popupTitle, "Age Cannot be 0");
+                popupMessage = updatePopupMessage(popupMessage, "Please enter a valid age between 1 - 130");
+            } else if (Integer.parseInt(ageTextField.getText()) > 130){
+                // age greater than 130 is not possible - update the error message
+                popupTitle = updatePopupTitle(popupTitle, "Too Old!!");
+                popupMessage = updatePopupMessage(popupMessage, "The Age you entered is too old to live, please re-check and enter your real age to proceed.");
+            }
+            
+            
+            // Email Validations
+            if(emailTextField.getText().isBlank()){
+                popupTitle = updatePopupTitle(popupTitle, "Email is Required!");
+                popupMessage = updatePopupMessage(popupMessage, "Please enter your email to proceed.");
+            } else if(!regexEmailPattern.matcher(emailTextField.getText()).matches()){
+                // test if email matches the regex pattern
+                popupTitle = updatePopupTitle(popupTitle, "Invalid Email Address!");
+                popupMessage = updatePopupMessage(popupMessage, "Please enter a valid email address to proceed.");
+            }
+            // any tests for messages? no I don't think so
+            
+            // Test if the selected photo is an image - jpg, jpeg, png, heic
+            if(popupTitle.equals("") && popupMessage.equals("")){
                 popupTitle = "Submitted!";
                 popupMessage = "Your entry has been recorded!"+"\n"
                         +"Name: "+firstNameTextField.getText()+" "+lastNameTextField.getText()+"\n"
