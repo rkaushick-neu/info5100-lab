@@ -122,6 +122,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        attachPicButton.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
         attachPicButton.setText("Attach a Picture");
         attachPicButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,7 +202,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(attachPicButton))
                 .addGap(47, 47, 47)
                 .addComponent(submitButton)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -336,7 +337,6 @@ public class MainFrame extends javax.swing.JFrame {
                 popupMessage = updatePopupMessage(popupMessage, "Please enter a valid email address to proceed.");
                 errorFlag = true;
             }
-            // any tests for messages? no I don't think so
             
             // Test if the selected photo is an image - jpg, jpeg, png, heic
             if(this.profilePicName.isBlank() || this.profilePicName.equals("No Image Uploaded")){
