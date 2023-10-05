@@ -138,7 +138,7 @@
                   </Group>
                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                   <Component id="submitButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="62" max="32767" attributes="0"/>
+                  <EmptySpace pref="58" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -291,6 +291,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="attachPicButton">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Annai MN" size="13" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Attach a Picture"/>
           </Properties>
           <Events>
