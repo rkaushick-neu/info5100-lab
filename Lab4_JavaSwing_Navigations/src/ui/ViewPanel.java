@@ -71,7 +71,7 @@ public class ViewPanel extends javax.swing.JPanel {
         titleLabel.setFont(new java.awt.Font("Arima Koshi", 1, 28)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(255, 255, 255));
         titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleLabel.setText("Patient Registration Form");
+        titleLabel.setText("Registered Patient's View");
         titleLabel.setToolTipText("");
         titleLabel.setPreferredSize(new java.awt.Dimension(358, 46));
 
@@ -338,6 +338,10 @@ public class ViewPanel extends javax.swing.JPanel {
         // This function is resposible to set the fields with the values in the Patient data
 //        System.out.println("Entering populatePatientData function"); // this is for debugging
         firstNameTextField.setText(patientUser.getFirstName());
-        System.out.println("Error occured!");
-    }
+        lastNameTextField.setText(patientUser.getLastName());
+        ageTextField.setText(Integer.toString(patientUser.getAge()));
+        emailTextField.setText(patientUser.getEmail());        
+        messageTextArea.setText(patientUser.getMessage());
+        
+}
 }
