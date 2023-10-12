@@ -43,6 +43,7 @@ public class ViewPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        genderButtonGroup = new javax.swing.ButtonGroup();
         mainPanel = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
         firstNameLabel = new javax.swing.JLabel();
@@ -138,6 +139,7 @@ public class ViewPanel extends javax.swing.JPanel {
         genderLabel.setForeground(new java.awt.Color(255, 255, 255));
         genderLabel.setText("Gender");
 
+        genderButtonGroup.add(maleRadioButton);
         maleRadioButton.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
         maleRadioButton.setForeground(new java.awt.Color(255, 255, 255));
         maleRadioButton.setText("Male");
@@ -147,6 +149,7 @@ public class ViewPanel extends javax.swing.JPanel {
             }
         });
 
+        genderButtonGroup.add(femaleRadioButton);
         femaleRadioButton.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
         femaleRadioButton.setForeground(new java.awt.Color(255, 255, 255));
         femaleRadioButton.setText("Female");
@@ -156,6 +159,7 @@ public class ViewPanel extends javax.swing.JPanel {
             }
         });
 
+        genderButtonGroup.add(undisclosedRadioButton);
         undisclosedRadioButton.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
         undisclosedRadioButton.setForeground(new java.awt.Color(255, 255, 255));
         undisclosedRadioButton.setText("Prefer Not To Say");
@@ -319,6 +323,7 @@ public class ViewPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton femaleRadioButton;
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField firstNameTextField;
+    private javax.swing.ButtonGroup genderButtonGroup;
     private javax.swing.JLabel genderLabel;
     private javax.swing.JLabel imageLabel;
     private javax.swing.JComboBox<String> jComboBox1;
