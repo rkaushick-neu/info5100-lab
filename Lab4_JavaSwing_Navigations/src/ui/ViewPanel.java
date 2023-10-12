@@ -57,15 +57,15 @@ public class ViewPanel extends javax.swing.JPanel {
         messageTextArea = new javax.swing.JTextArea();
         emailLabel = new javax.swing.JLabel();
         messageLabel = new javax.swing.JLabel();
-        imageLabel = new javax.swing.JLabel();
         patientTypeLabel = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        patientTypeComboBox = new javax.swing.JComboBox<>();
         genderLabel = new javax.swing.JLabel();
         maleRadioButton = new javax.swing.JRadioButton();
         femaleRadioButton = new javax.swing.JRadioButton();
         undisclosedRadioButton = new javax.swing.JRadioButton();
+        iconLabel = new javax.swing.JLabel();
 
-        mainPanel.setBackground(new java.awt.Color(0, 153, 204));
+        mainPanel.setBackground(new java.awt.Color(0, 204, 102));
         mainPanel.setForeground(new java.awt.Color(255, 255, 255));
         mainPanel.setPreferredSize(new java.awt.Dimension(800, 600));
 
@@ -119,19 +119,16 @@ public class ViewPanel extends javax.swing.JPanel {
         messageLabel.setForeground(new java.awt.Color(255, 255, 255));
         messageLabel.setText("Message");
 
-        imageLabel.setFont(new java.awt.Font("Annai MN", 0, 14)); // NOI18N
-        imageLabel.setForeground(new java.awt.Color(255, 255, 255));
-        imageLabel.setText("Profile Picture");
-
         patientTypeLabel.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
         patientTypeLabel.setForeground(new java.awt.Color(255, 255, 255));
         patientTypeLabel.setText("Patient Type");
 
-        jComboBox1.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Emergency", "Appointment", "Follow-up Appointment", "Walk In" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        patientTypeComboBox.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
+        patientTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Emergency", "Appointment", "Follow-up Appointment", "Walk In" }));
+        patientTypeComboBox.setSelectedIndex(-1);
+        patientTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                patientTypeComboBoxActionPerformed(evt);
             }
         });
 
@@ -207,21 +204,21 @@ public class ViewPanel extends javax.swing.JPanel {
                                 .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(155, 155, 155))
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(91, 91, 91)
+                        .addGap(105, 105, 105)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(imageLabel)
                             .addComponent(patientTypeLabel)
                             .addComponent(genderLabel))
                         .addGap(18, 18, 18)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(patientTypeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(273, 273, 273))
                             .addGroup(mainPanelLayout.createSequentialGroup()
                                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(maleRadioButton)
                                     .addComponent(femaleRadioButton)
-                                    .addComponent(undisclosedRadioButton))
+                                    .addComponent(undisclosedRadioButton)
+                                    .addComponent(iconLabel))
                                 .addContainerGap())))))
         );
         mainPanelLayout.setVerticalGroup(
@@ -248,7 +245,7 @@ public class ViewPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(patientTypeLabel)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(patientTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(genderLabel)
@@ -257,9 +254,9 @@ public class ViewPanel extends javax.swing.JPanel {
                 .addComponent(femaleRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(undisclosedRadioButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(imageLabel)
-                .addGap(106, 106, 106))
+                .addGap(37, 37, 37)
+                .addComponent(iconLabel)
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -282,9 +279,9 @@ public class ViewPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_lastNameTextFieldActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void patientTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientTypeComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_patientTypeComboBoxActionPerformed
 
     private void maleRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maleRadioButtonActionPerformed
         // TODO add your handling code here:
@@ -328,8 +325,7 @@ public class ViewPanel extends javax.swing.JPanel {
     private javax.swing.JTextField firstNameTextField;
     private javax.swing.ButtonGroup genderButtonGroup;
     private javax.swing.JLabel genderLabel;
-    private javax.swing.JLabel imageLabel;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel iconLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField lastNameTextField;
@@ -337,6 +333,7 @@ public class ViewPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton maleRadioButton;
     private javax.swing.JLabel messageLabel;
     private javax.swing.JTextArea messageTextArea;
+    private javax.swing.JComboBox<String> patientTypeComboBox;
     private javax.swing.JLabel patientTypeLabel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JRadioButton undisclosedRadioButton;
@@ -363,5 +360,9 @@ public class ViewPanel extends javax.swing.JPanel {
                 genderButtonGroup.setSelected(undisclosedRadioButton.getModel(), true);
                 break;
         }
+        
+        // setting the combobox
+        patientTypeComboBox.setSelectedItem(patientUser.getPatientType());
+        
     }
 }

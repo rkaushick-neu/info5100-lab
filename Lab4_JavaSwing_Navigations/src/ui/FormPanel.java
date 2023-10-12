@@ -440,8 +440,7 @@ public class FormPanel extends javax.swing.JPanel {
                     popupMessage = updatePopupMessage(popupMessage, "Please select one of the gender choices to proceed.");
                     errorFlag = true;
                 }
-                // System.out.println("Male selection is: "+genderButtonGroup.isSelected(maleRadioButton.getModel()));
-
+                
                 // Test if the selected photo is an image - jpg, jpeg, png, heic
                 if(this.profilePicName.isBlank() || this.profilePicName.equals("No Image Uploaded")){
                     // this means that the user has not uploaded any image
@@ -489,10 +488,14 @@ public class FormPanel extends javax.swing.JPanel {
                         patient1.setMessage(messageTextArea.getText());
                         patient1.setDisplayPic(successIcon);
                         
-                        // trying to understand how to get the selected value of the 
-                        System.out.println(genderButtonGroup.getSelection().getActionCommand());
-                        
+                        // debugging how to get the selected value of the button group
+                        //System.out.println(genderButtonGroup.getSelection().getActionCommand());
                         patient1.setGender(genderButtonGroup.getSelection().getActionCommand());
+                        
+                        //setting the value of the combobox
+                        System.out.println("Patient Combobox");
+                        System.out.println(patientTypeComboBox.getSelectedItem().toString());
+                        patient1.setPatientType(patientTypeComboBox.getSelectedItem().toString());
                         
                         ViewPanel newViewPanel = new ViewPanel(patient1);
                         this.bottomPanel.add(newViewPanel);
@@ -516,6 +519,7 @@ public class FormPanel extends javax.swing.JPanel {
 //                        System.out.println(genderButtonGroup.getSelection().getActionCommand());
                         profilePicIcon = new ImageIcon(this.profilePicture.getAbsolutePath());
                         patient1.setDisplayPic(profilePicIcon);
+                        patient1.setGender(genderButtonGroup.getSelection().getActionCommand());
 
                         ViewPanel newViewPanel = new ViewPanel(patient1);
                         this.bottomPanel.add(newViewPanel);
