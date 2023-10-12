@@ -493,8 +493,8 @@ public class FormPanel extends javax.swing.JPanel {
                         patient1.setGender(genderButtonGroup.getSelection().getActionCommand());
                         
                         //setting the value of the combobox
-                        System.out.println("Patient Combobox");
-                        System.out.println(patientTypeComboBox.getSelectedItem().toString());
+//                        System.out.println("Patient Combobox");
+//                        System.out.println(patientTypeComboBox.getSelectedItem().toString());
                         patient1.setPatientType(patientTypeComboBox.getSelectedItem().toString());
                         
                         ViewPanel newViewPanel = new ViewPanel(patient1);
@@ -517,10 +517,10 @@ public class FormPanel extends javax.swing.JPanel {
                         patient1.setEmail(emailTextField.getText());
                         patient1.setMessage(messageTextArea.getText());
 //                        System.out.println(genderButtonGroup.getSelection().getActionCommand());
-                        profilePicIcon = new ImageIcon(this.profilePicture.getAbsolutePath());
+//                        profilePicIcon = new ImageIcon(this.profilePicture.getAbsolutePath());
                         patient1.setDisplayPic(profilePicIcon);
                         patient1.setGender(genderButtonGroup.getSelection().getActionCommand());
-
+                        patient1.setPatientType(patientTypeComboBox.getSelectedItem().toString());
                         ViewPanel newViewPanel = new ViewPanel(patient1);
                         this.bottomPanel.add(newViewPanel);
                         CardLayout layout = (CardLayout) this.bottomPanel.getLayout();

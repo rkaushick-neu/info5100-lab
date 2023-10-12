@@ -364,5 +364,8 @@ public class ViewPanel extends javax.swing.JPanel {
         // setting the combobox
         patientTypeComboBox.setSelectedItem(patientUser.getPatientType());
         
+        // setting the icon with the picture
+        iconLabel.setIcon(patientUser.getDisplayPic());
+        
     }
 }
