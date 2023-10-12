@@ -145,7 +145,8 @@ public class FormPanel extends javax.swing.JPanel {
         patientTypeLabel.setText("Patient Type");
 
         patientTypeComboBox.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
-        patientTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Your Choice", "Emergency", "Appointment", "Follow-up Appointment", "Walk In" }));
+        patientTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Emergency", "Appointment", "Follow-up Appointment", "Walk In" }));
+        patientTypeComboBox.setSelectedIndex(-1);
         patientTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 patientTypeComboBoxActionPerformed(evt);
@@ -160,6 +161,7 @@ public class FormPanel extends javax.swing.JPanel {
         maleRadioButton.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
         maleRadioButton.setForeground(new java.awt.Color(255, 255, 255));
         maleRadioButton.setText("Male");
+        maleRadioButton.setActionCommand("MALE");
         maleRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 maleRadioButtonActionPerformed(evt);
@@ -170,6 +172,7 @@ public class FormPanel extends javax.swing.JPanel {
         femaleRadioButton.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
         femaleRadioButton.setForeground(new java.awt.Color(255, 255, 255));
         femaleRadioButton.setText("Female");
+        femaleRadioButton.setActionCommand("FEMALE");
         femaleRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 femaleRadioButtonActionPerformed(evt);
@@ -180,6 +183,7 @@ public class FormPanel extends javax.swing.JPanel {
         undisclosedRadioButton.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
         undisclosedRadioButton.setForeground(new java.awt.Color(255, 255, 255));
         undisclosedRadioButton.setText("Prefer Not To Say");
+        undisclosedRadioButton.setActionCommand("UNDISCLOSED");
         undisclosedRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 undisclosedRadioButtonActionPerformed(evt);
@@ -417,7 +421,7 @@ public class FormPanel extends javax.swing.JPanel {
                 }
                 
                 // Patient Type Validations
-                if(patientTypeComboBox.getSelectedIndex() == 0){
+                if(patientTypeComboBox.getSelectedIndex() == -1){
                     // this means the user has not selected any values --> throw error
                     popupTitle = updatePopupTitle(popupTitle, "Invalid Patient Type!");
                     popupMessage = updatePopupMessage(popupMessage, "Please select a valid patient type from the dropdown to proceed.");
@@ -484,6 +488,11 @@ public class FormPanel extends javax.swing.JPanel {
                         patient1.setEmail(emailTextField.getText());
                         patient1.setMessage(messageTextArea.getText());
                         patient1.setDisplayPic(successIcon);
+                        
+                        // trying to understand how to get the selected value of the 
+                        System.out.println(genderButtonGroup.getSelection().getActionCommand());
+                        
+                        patient1.setGender(genderButtonGroup.getSelection().getActionCommand());
                         
                         ViewPanel newViewPanel = new ViewPanel(patient1);
                         this.bottomPanel.add(newViewPanel);

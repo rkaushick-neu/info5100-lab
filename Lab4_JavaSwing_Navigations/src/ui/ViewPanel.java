@@ -143,6 +143,7 @@ public class ViewPanel extends javax.swing.JPanel {
         maleRadioButton.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
         maleRadioButton.setForeground(new java.awt.Color(255, 255, 255));
         maleRadioButton.setText("Male");
+        maleRadioButton.setActionCommand("MALE");
         maleRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 maleRadioButtonActionPerformed(evt);
@@ -153,6 +154,7 @@ public class ViewPanel extends javax.swing.JPanel {
         femaleRadioButton.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
         femaleRadioButton.setForeground(new java.awt.Color(255, 255, 255));
         femaleRadioButton.setText("Female");
+        femaleRadioButton.setActionCommand("FEMALE");
         femaleRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 femaleRadioButtonActionPerformed(evt);
@@ -163,6 +165,7 @@ public class ViewPanel extends javax.swing.JPanel {
         undisclosedRadioButton.setFont(new java.awt.Font("Annai MN", 0, 13)); // NOI18N
         undisclosedRadioButton.setForeground(new java.awt.Color(255, 255, 255));
         undisclosedRadioButton.setText("Prefer Not To Say");
+        undisclosedRadioButton.setActionCommand("UNDISCLOSED");
         undisclosedRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 undisclosedRadioButtonActionPerformed(evt);
@@ -348,5 +351,17 @@ public class ViewPanel extends javax.swing.JPanel {
         emailTextField.setText(patientUser.getEmail());        
         messageTextArea.setText(patientUser.getMessage());
         
-}
+        // setting the gender group radio button based on the value in patientUser.gender
+        switch (patientUser.getGender()) {
+            case "MALE":
+                genderButtonGroup.setSelected(maleRadioButton.getModel(), true);
+                break;
+            case "FEMALE":
+                genderButtonGroup.setSelected(femaleRadioButton.getModel(), true);
+                break;
+            default:
+                genderButtonGroup.setSelected(undisclosedRadioButton.getModel(), true);
+                break;
+        }
+    }
 }

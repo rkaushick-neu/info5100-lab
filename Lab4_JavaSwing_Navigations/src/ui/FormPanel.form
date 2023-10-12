@@ -340,14 +340,14 @@
               <Font name="Annai MN" size="13" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="Select Your Choice"/>
-                <StringItem index="1" value="Emergency"/>
-                <StringItem index="2" value="Appointment"/>
-                <StringItem index="3" value="Follow-up Appointment"/>
-                <StringItem index="4" value="Walk In"/>
+              <StringArray count="4">
+                <StringItem index="0" value="Emergency"/>
+                <StringItem index="1" value="Appointment"/>
+                <StringItem index="2" value="Follow-up Appointment"/>
+                <StringItem index="3" value="Walk In"/>
               </StringArray>
             </Property>
+            <Property name="selectedIndex" type="int" value="-1"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="patientTypeComboBoxActionPerformed"/>
@@ -379,6 +379,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Male"/>
+            <Property name="actionCommand" type="java.lang.String" value="MALE"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="maleRadioButtonActionPerformed"/>
@@ -396,6 +397,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Female"/>
+            <Property name="actionCommand" type="java.lang.String" value="FEMALE"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="femaleRadioButtonActionPerformed"/>
@@ -413,6 +415,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Prefer Not To Say"/>
+            <Property name="actionCommand" type="java.lang.String" value="UNDISCLOSED"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="undisclosedRadioButtonActionPerformed"/>
