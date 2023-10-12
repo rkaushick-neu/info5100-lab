@@ -433,7 +433,7 @@ public class FormPanel extends javax.swing.JPanel {
                     // if all of them are false, then none of them has been selected by the user --> hence display error popup to user.
                     // if any one of them is true then it is selected
                     popupTitle = updatePopupTitle(popupTitle, "Gender is Required!");
-                    popupMessage = updatePopupMessage(popupMessage, "Please select one of the Gender choices to proceed.");
+                    popupMessage = updatePopupMessage(popupMessage, "Please select one of the gender choices to proceed.");
                     errorFlag = true;
                 }
                 // System.out.println("Male selection is: "+genderButtonGroup.isSelected(maleRadioButton.getModel()));
@@ -484,7 +484,11 @@ public class FormPanel extends javax.swing.JPanel {
                         patient1.setEmail(emailTextField.getText());
                         patient1.setMessage(messageTextArea.getText());
                         patient1.setDisplayPic(successIcon);
-
+                        
+                        ViewPanel newViewPanel = new ViewPanel(patient1);
+                        this.bottomPanel.add(newViewPanel);
+                        CardLayout layout = (CardLayout) this.bottomPanel.getLayout();
+                        layout.next(this.bottomPanel);
                         
                     } else {
                         // profile picture loaded by the user
@@ -495,14 +499,12 @@ public class FormPanel extends javax.swing.JPanel {
                         
                         // Here the patient record must be initialized and it should go to the View Panel page
                         Patient patient1 = new Patient();
-                        System.out.println("No error yet.");
-                        patient1.setFirstName(firstNameTextField.getText());
-                        System.out.println("Error occured yet?");                        
+                        patient1.setFirstName(firstNameTextField.getText());                        
                         patient1.setLastName(lastNameTextField.getText());
                         patient1.setAge(Integer.parseInt(ageTextField.getText()));
                         patient1.setEmail(emailTextField.getText());
                         patient1.setMessage(messageTextArea.getText());
-
+//                        System.out.println(genderButtonGroup.getSelection().getActionCommand());
                         profilePicIcon = new ImageIcon(this.profilePicture.getAbsolutePath());
                         patient1.setDisplayPic(profilePicIcon);
 
