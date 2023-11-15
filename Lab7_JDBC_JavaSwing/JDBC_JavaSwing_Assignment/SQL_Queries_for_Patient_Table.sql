@@ -7,11 +7,11 @@ show databases;
 use medicaldb;
 show tables;
 
-CREATE TABLE patient(first_name varchar(30),
-	last_name varchar(30),
-	age int,
-    type varchar(25));
-
+CREATE TABLE patipatientpatientent(first_name VARCHAR(30),
+	last_name VARCHAR(30),
+	age INT,
+    patient_type VARCHAR(25),
+    id INT PRIMARY KEY AUTO_INCREMENT);
 show tables;
 -- Returns the patient table
 
