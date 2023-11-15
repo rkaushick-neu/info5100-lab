@@ -30,14 +30,15 @@ public class DatabaseConnector {
      */
     public static void addPatient(Patient patient) {
         //add to database
-        String query = "INSERT INTO PATIENT(NAME,AGE) VALUES(?,?)";
+        String query = "INSERT INTO patient(first_name, last_name, age, type) VALUES(?,?,?,?)";
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, patient.getFirstName());
-            stmt.setInt(2, patient.getAge());
+            stmt.setString(2, patient.getLastName());
+            stmt.setInt(3, patient.getAge());
+            stmt.setString(4, patient.getPatientType());
             int rows = stmt.executeUpdate();
             System.out.println("Rows impacted : " + rows);
-//            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
