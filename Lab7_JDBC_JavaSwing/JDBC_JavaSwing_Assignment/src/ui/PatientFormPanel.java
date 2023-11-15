@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Patient;
+import utility.DatabaseConnector;
 
 /**
  *
@@ -310,6 +311,9 @@ public class PatientFormPanel extends javax.swing.JPanel {
                 this.bottomPanel.add(newViewPanel);
                 CardLayout layout = (CardLayout) this.bottomPanel.getLayout();
                 layout.next(this.bottomPanel);
+                
+                //here we should add the data into the database.
+                DatabaseConnector.addPatient(patient1);
             }
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, "Sorry, but there was an error while submitting! Please see the below error details:"+"\n"+e, "Oops!", HEIGHT);
