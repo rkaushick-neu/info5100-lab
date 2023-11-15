@@ -26,6 +26,7 @@ public class PatientFormPanel extends javax.swing.JPanel {
      */
     
     private JPanel bottomPanel;
+    
     public PatientFormPanel(JPanel bottomPanel) {
         this.bottomPanel = bottomPanel;
         initComponents();
@@ -223,7 +224,6 @@ public class PatientFormPanel extends javax.swing.JPanel {
         // Using Regex to Validate the User Inputs
         String regexString = "[(')a-zA-z]*";
         String numericString = "[0-9]*";
-        String emailString = "([a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*)";
         Pattern regexNamePattern = Pattern.compile(regexString);
         Pattern regexAgePattern = Pattern.compile(numericString);
 
@@ -247,113 +247,73 @@ public class PatientFormPanel extends javax.swing.JPanel {
 
             // Last Name Validations
             // last name cannot contain special characters as well (except for ' for names like D'Souza
-                if(!regexNamePattern.matcher(lastNameTextField.getText()).matches()){
-                    popupTitle = updatePopupTitle(popupTitle, "Numbers / Special Characters Not Allowed in Last Name");
-                    popupMessage = updatePopupMessage(popupMessage, "Sorry, special characters or numbers are not allowed in the Last Name.");
-                    errorFlag = true;
-                }
-
-                // Age validations
-                if(ageTextField.getText().isBlank()){
-                    popupTitle = updatePopupTitle(popupTitle, "Age is Required!");
-                    popupMessage = updatePopupMessage(popupMessage, "Please enter your age to proceed.");
-                    errorFlag = true;
-                }
-                else if(!regexAgePattern.matcher(ageTextField.getText()).matches()){
-                    // not a number
-                    popupTitle = updatePopupTitle(popupTitle, "Age Should a Numeric Value");
-                    popupMessage = updatePopupMessage(popupMessage, "Please enter the value of your age in numeric values between 1 - 130");
-                    errorFlag = true;
-                } else if (ageTextField.getText().equals("0")){
-                    // age cannot be 0
-                    popupTitle = updatePopupTitle(popupTitle, "Age Cannot be 0");
-                    popupMessage = updatePopupMessage(popupMessage, "Please enter a valid age between 1 - 130");
-                    errorFlag = true;
-                } else if (Integer.parseInt(ageTextField.getText()) > 130){
-                    // age greater than 130 is not possible - update the error message
-                    popupTitle = updatePopupTitle(popupTitle, "Too Old!!");
-                    popupMessage = updatePopupMessage(popupMessage, "The Age you entered is too old to live, please re-check and enter your real age to proceed.");
-                    errorFlag = true;
-                }
-                
-                // Patient Type Validations
-                if(patientTypeComboBox.getSelectedIndex() == -1){
-                    // this means the user has not selected any values --> throw error
-                    popupTitle = updatePopupTitle(popupTitle, "Invalid Patient Type!");
-                    popupMessage = updatePopupMessage(popupMessage, "Please select a valid patient type from the dropdown to proceed.");
-                    errorFlag = true;
-                }
-                
-
-                if(popupTitle.equals("") && popupMessage.equals("") && (!errorFlag)){
-                    popupTitle = "Submitted!";
-                    popupMessage = "Your entry has been recorded!"+"\n"
-                    +"Name: "+firstNameTextField.getText()+" "+lastNameTextField.getText()+"\n"
-                    +"Age: "+ageTextField.getText()+"\n"
-//                    +"Email:"+emailTextField.getText()+"\n"
-//                    +"Message: "+"\n"+messageTextArea.getText()+"\n"
-                    +"Image:"+this.profilePicName+"\n";
-
-                }
-                // logging message for debugging
-                System.out.println("Popup Title: "+popupTitle);
-                System.out.println("Popup Body: "+popupMessage);
-                if(errorFlag){
-                    // this means there is an error - so displaying the error message with the error icon
-                    // System.out.println(System.getProperty("user.dir")+"/src/ui/error_image.jpeg"); // debug
-                    JOptionPane.showMessageDialog(this, popupMessage, popupTitle, HEIGHT);
-                } else {
-                    // no error
-                    if(this.profilePicName.isBlank() || this.profilePicName.equals("No Image Uploaded")){
-                        // no profile picture
-                        // display the details with the success icon
-                        // System.out.println(System.getProperty("user.dir")+"/src/ui/success_image.png");
-                        // JOptionPane.showMessageDialog(this, popupMessage, popupTitle, HEIGHT, successIcon);
-                        // instead of getting a dialog box --> we must put it in the Patient object.
-                        Patient patient1 = new Patient();
-                        patient1.setFirstName(firstNameTextField.getText());
-                        patient1.setLastName(lastNameTextField.getText());
-                        patient1.setAge(Integer.parseInt(ageTextField.getText()));
-//                        patient1.setEmail(emailTextField.getText());
-//                        patient1.setMessage(messageTextArea.getText());
-                        
-                        // debugging how to get the selected value of the button group
-                        //System.out.println(genderButtonGroup.getSelection().getActionCommand());
-//                        patient1.setGender(genderButtonGroup.getSelection().getActionCommand());
-                        
-                        //setting the value of the combobox
-//                        System.out.println("Patient Combobox");
-//                        System.out.println(patientTypeComboBox.getSelectedItem().toString());
-                        patient1.setPatientType(patientTypeComboBox.getSelectedItem().toString());
-                        
-                        ViewPanel newViewPanel = new ViewPanel(patient1);
-                        this.bottomPanel.add(newViewPanel);
-                        CardLayout layout = (CardLayout) this.bottomPanel.getLayout();
-                        layout.next(this.bottomPanel);
-                        
-                    } else {
-                        // profile picture loaded by the user
-                        // System.out.println(this.profilePicture.getAbsolutePath());
-                        // JOptionPane.showMessageDialog(this, popupMessage, popupTitle, HEIGHT, profilePicIcon);
-                        // instead of getting a dialog box --> we must put it in the Patient object.
-                        // and then view the ViewPane button
-                        
-                        // Here the patient record must be initialized and it should go to the View Panel page
-                        Patient patient1 = new Patient();
-                        patient1.setFirstName(firstNameTextField.getText());                        
-                        patient1.setLastName(lastNameTextField.getText());
-                        patient1.setAge(Integer.parseInt(ageTextField.getText()));
-                        patient1.setPatientType(patientTypeComboBox.getSelectedItem().toString());
-                        ViewPanel newViewPanel = new ViewPanel(patient1);
-                        this.bottomPanel.add(newViewPanel);
-                        CardLayout layout = (CardLayout) this.bottomPanel.getLayout();
-                        layout.next(this.bottomPanel);                         
-                        
-                    }
-                }
-            } catch(Exception e){
-                JOptionPane.showMessageDialog(this, "Sorry, but there was an error while submitting! Please see the below error details:"+"\n"+e, "Oops!", HEIGHT);
+            if(!regexNamePattern.matcher(lastNameTextField.getText()).matches()){
+                popupTitle = updatePopupTitle(popupTitle, "Numbers / Special Characters Not Allowed in Last Name");
+                popupMessage = updatePopupMessage(popupMessage, "Sorry, special characters or numbers are not allowed in the Last Name.");
+                errorFlag = true;
             }
+
+            // Age validations
+            if(ageTextField.getText().isBlank()){
+                popupTitle = updatePopupTitle(popupTitle, "Age is Required!");
+                popupMessage = updatePopupMessage(popupMessage, "Please enter your age to proceed.");
+                errorFlag = true;
+            }
+            else if(!regexAgePattern.matcher(ageTextField.getText()).matches()){
+                // not a number
+                popupTitle = updatePopupTitle(popupTitle, "Age Should a Numeric Value");
+                popupMessage = updatePopupMessage(popupMessage, "Please enter the value of your age in numeric values between 1 - 130");
+                errorFlag = true;
+            } else if (ageTextField.getText().equals("0")){
+                // age cannot be 0
+                popupTitle = updatePopupTitle(popupTitle, "Age Cannot be 0");
+                popupMessage = updatePopupMessage(popupMessage, "Please enter a valid age between 1 - 130");
+                errorFlag = true;
+            } else if (Integer.parseInt(ageTextField.getText()) > 130){
+                // age greater than 130 is not possible - update the error message
+                popupTitle = updatePopupTitle(popupTitle, "Too Old!!");
+                popupMessage = updatePopupMessage(popupMessage, "The Age you entered is too old to live, please re-check and enter your real age to proceed.");
+                errorFlag = true;
+            }
+
+            // Patient Type Validations
+            if(patientTypeComboBox.getSelectedIndex() == -1){
+                // this means the user has not selected any values --> throw error
+                popupTitle = updatePopupTitle(popupTitle, "Invalid Patient Type!");
+                popupMessage = updatePopupMessage(popupMessage, "Please select a valid patient type from the dropdown to proceed.");
+                errorFlag = true;
+            }
+
+
+            if(popupTitle.equals("") && popupMessage.equals("") && (!errorFlag)){
+                popupTitle = "Submitted!";
+                popupMessage = "Your entry has been recorded!"+"\n"
+                +"Name: "+firstNameTextField.getText()+" "+lastNameTextField.getText()+"\n"
+                +"Age: "+ageTextField.getText()+"\n"
+                +"Patient Type:"+patientTypeComboBox.getSelectedItem().toString()+"\n";
+
+            }
+            // logging message for debugging
+            System.out.println("Popup Title: "+popupTitle);
+            System.out.println("Popup Body: "+popupMessage);
+            if(errorFlag){
+                JOptionPane.showMessageDialog(this, popupMessage, popupTitle, HEIGHT);
+            } else {
+                // no error
+                // Here the patient record must be initialized and it should go to the View Panel page
+                Patient patient1 = new Patient();
+                patient1.setFirstName(firstNameTextField.getText());                        
+                patient1.setLastName(lastNameTextField.getText());
+                patient1.setAge(Integer.parseInt(ageTextField.getText()));
+                patient1.setPatientType(patientTypeComboBox.getSelectedItem().toString());
+                ViewPanel newViewPanel = new ViewPanel(patient1);
+                this.bottomPanel.add(newViewPanel);
+                CardLayout layout = (CardLayout) this.bottomPanel.getLayout();
+                layout.next(this.bottomPanel);
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Sorry, but there was an error while submitting! Please see the below error details:"+"\n"+e, "Oops!", HEIGHT);
+        }
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void patientTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientTypeComboBoxActionPerformed
