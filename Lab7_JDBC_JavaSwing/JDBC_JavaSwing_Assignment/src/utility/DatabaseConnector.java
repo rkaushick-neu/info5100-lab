@@ -98,13 +98,15 @@ public class DatabaseConnector {
      * @param newPatient modified patient details
      */
     public static void editUser(Patient oldPatient, Patient newPatient) {
-        String query = "UPDATE USER SET name=?, age=? WHERE id=?";
+        String query = "UPDATE patient SET first_name=?, last_name=?, age=?, patient_type=? WHERE id=?";
 
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, newPatient.getFirstName());
-            stmt.setInt(2, newPatient.getAge());
-            stmt.setInt(3, oldPatient.getId());
+            stmt.setString(2, newPatient.getLastName());
+            stmt.setInt(3, newPatient.getAge());
+            stmt.setString(4, newPatient.getPatientType());
+            stmt.setInt(5, oldPatient.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
