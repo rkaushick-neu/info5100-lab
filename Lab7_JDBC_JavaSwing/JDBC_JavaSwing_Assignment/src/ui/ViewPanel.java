@@ -31,7 +31,7 @@ public class ViewPanel extends javax.swing.JPanel {
         // now we need to comment above line
         // and uncomment the below line
          populatePatientTable();
-        // clearTextFields();
+         clearFields();
     }
 
     /**
@@ -56,6 +56,10 @@ public class ViewPanel extends javax.swing.JPanel {
         iconLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         patientTable = new javax.swing.JTable();
+        editPatientLabel = new javax.swing.JLabel();
+        deleteRowButton = new javax.swing.JButton();
+        editRowButton = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
 
         mainPanel.setBackground(new java.awt.Color(0, 204, 102));
         mainPanel.setForeground(new java.awt.Color(255, 255, 255));
@@ -138,8 +142,22 @@ public class ViewPanel extends javax.swing.JPanel {
             patientTable.getColumnModel().getColumn(1).setResizable(false);
             patientTable.getColumnModel().getColumn(2).setResizable(false);
             patientTable.getColumnModel().getColumn(3).setResizable(false);
-            patientTable.getColumnModel().getColumn(4).setResizable(false);
         }
+
+        editPatientLabel.setFont(new java.awt.Font("Arima Koshi", 1, 20)); // NOI18N
+        editPatientLabel.setForeground(new java.awt.Color(255, 255, 255));
+        editPatientLabel.setText("Edit Patient");
+
+        deleteRowButton.setText("Delete Selected Row");
+        deleteRowButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteRowButtonActionPerformed(evt);
+            }
+        });
+
+        editRowButton.setText("Edit Selected Row");
+
+        saveButton.setText("Save");
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -152,66 +170,75 @@ public class ViewPanel extends javax.swing.JPanel {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(iconLabel)
-                        .addContainerGap(348, Short.MAX_VALUE))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(iconLabel)
                             .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addComponent(patientTypeLabel)
-                                .addGap(18, 18, 18)
-                                .addComponent(patientTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(170, 170, 170)
+                                .addComponent(deleteRowButton))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                                .addGap(32, 32, 32)
+                                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(ageLabel)
+                                    .addComponent(patientTypeLabel)
+                                    .addComponent(lastNameLabel)
+                                    .addComponent(firstNameLabel))
+                                .addGap(18, 18, 18)
                                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                                        .addComponent(ageLabel)
-                                        .addGap(35, 35, 35))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(firstNameLabel)
-                                            .addComponent(lastNameLabel))
-                                        .addGap(30, 30, 30)))
-                                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(mainPanelLayout.createSequentialGroup()
-                                        .addGap(32, 32, 32)
-                                        .addComponent(ageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lastNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                    .addComponent(firstNameTextField))))
-                        .addGap(26, 26, 26))))
+                                    .addComponent(saveButton)
+                                    .addComponent(patientTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(mainPanelLayout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(editPatientLabel)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(editRowButton)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(215, 215, 215)
+                        .addGap(0, 87, Short.MAX_VALUE)
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(editRowButton)
+                            .addComponent(deleteRowButton))
+                        .addGap(52, 52, 52)
+                        .addComponent(editPatientLabel)
+                        .addGap(18, 18, 18)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(firstNameLabel))
                         .addGap(18, 18, 18)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lastNameLabel)
-                            .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lastNameLabel))
                         .addGap(18, 18, 18)
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ageLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(patientTypeLabel)
-                            .addComponent(patientTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(56, 56, 56)
-                        .addComponent(iconLabel))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(mainPanelLayout.createSequentialGroup()
+                                .addGap(137, 137, 137)
+                                .addComponent(iconLabel))
+                            .addGroup(mainPanelLayout.createSequentialGroup()
+                                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(ageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ageLabel))
+                                .addGap(18, 18, 18)
+                                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(patientTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(patientTypeLabel))
+                                .addGap(18, 18, 18)
+                                .addComponent(saveButton))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -238,6 +265,27 @@ public class ViewPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_patientTypeComboBoxActionPerformed
 
+    private void deleteRowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRowButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = patientTable.getSelectedRow();
+        
+        // validating if the user has selected a row before hitting delete
+        if(selectedRowIndex == -1){
+            // user has not selected a row
+            JOptionPane.showMessageDialog(this, "Please select the user first!", "Oops, unable to delete!", HEIGHT);
+        } else {
+            try{
+                this.selectedPatient = this.patients.get(selectedRowIndex);
+                DatabaseConnector.deleteUser(selectedPatient);
+                JOptionPane.showMessageDialog(null, "Patient Deleted Successfully!", "Success!", HEIGHT);
+                clearFields();
+                populatePatientTable();
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Unable to delete patient!", HEIGHT);
+            }
+        }
+    }//GEN-LAST:event_deleteRowButtonActionPerformed
+
     // helper function to update most relevant title of the popup title
     public String updatePopupTitle(String popupTitle, String newPopupTitle){
         if (popupTitle.equals("")){
@@ -261,6 +309,9 @@ public class ViewPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ageLabel;
     private javax.swing.JTextField ageTextField;
+    private javax.swing.JButton deleteRowButton;
+    private javax.swing.JLabel editPatientLabel;
+    private javax.swing.JButton editRowButton;
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField firstNameTextField;
     private javax.swing.JLabel iconLabel;
@@ -271,6 +322,7 @@ public class ViewPanel extends javax.swing.JPanel {
     private javax.swing.JTable patientTable;
     private javax.swing.JComboBox<String> patientTypeComboBox;
     private javax.swing.JLabel patientTypeLabel;
+    private javax.swing.JButton saveButton;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 
@@ -281,14 +333,14 @@ public class ViewPanel extends javax.swing.JPanel {
             model.setRowCount(0);
             for(Patient p1 : patients){
                 Object [] patientRow  = new Object[5];
-                patientRow[0] = p1;
+                patientRow[0] = p1.getId();
                 patientRow[1] = p1.getFirstName();
                 patientRow[2] = p1.getLastName();
                 patientRow[3] = p1.getAge();
                 patientRow[4] = p1.getPatientType();
                 model.addRow(patientRow);
             }
-//            clearFields(); // needed for clearing the 
+            clearFields();
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error!", HEIGHT);
         }
@@ -303,7 +355,13 @@ public class ViewPanel extends javax.swing.JPanel {
         
         // setting the combobox
         patientTypeComboBox.setSelectedItem(selectedPatient.getPatientType());
-        
-        
+    }
+    
+    private void clearFields(){
+        // removing the text in the edit section - first name, last name, age, patient type
+        firstNameTextField.setText(null);
+        lastNameTextField.setText(null);
+        ageTextField.setText(null);
+        patientTypeComboBox.setSelectedIndex(-1);
     }
 }

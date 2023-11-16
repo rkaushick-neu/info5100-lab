@@ -54,6 +54,7 @@ public class DatabaseConnector {
 
         String query = "SELECT * FROM patient";
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            // the try block will close the cursor, so we do not need to write conn.close()
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -76,15 +77,15 @@ public class DatabaseConnector {
     /**
      * Delete a given patient from the database
      * @see Patient
-     * @param u Patient to be deleted
+     * @param patient Patient to be deleted
      * 
      */
-    public static void deleteUser(Patient u) {
-        String query = "delete from PATIENT where id = ?";
+    public static void deleteUser(Patient patient) {
+        String query = "DELETE FROM patient WHERE id = ?";
 
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, u.getId());
+            stmt.setInt(1, patient.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
