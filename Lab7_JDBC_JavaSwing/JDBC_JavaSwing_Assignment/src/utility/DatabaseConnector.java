@@ -30,7 +30,7 @@ public class DatabaseConnector {
      */
     public static void addPatient(Patient patient) {
         //add to database
-        String query = "INSERT INTO patient(first_name, last_name, age, type) VALUES(?,?,?,?)";
+        String query = "INSERT INTO patient(first_name, last_name, age, patient_type) VALUES(?,?,?,?)";
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, patient.getFirstName());
@@ -50,25 +50,27 @@ public class DatabaseConnector {
      * @return array-list of patients
      */
     public static ArrayList<Patient> getAllPatients() {
-        ArrayList<Patient> users = new ArrayList<>();
+        ArrayList<Patient> patients = new ArrayList<>();
 
-        String query = "SELECT * FROM PATIENT";
+        String query = "SELECT * FROM patient";
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                Patient u = new Patient();
-                u.setFirstName(rs.getString("name"));
-                u.setAge(rs.getInt("age"));
-                u.setId(rs.getInt("id"));
-                users.add(u);
+                Patient patient = new Patient();
+                patient.setFirstName(rs.getString("first_name"));
+                patient.setLastName(rs.getString("last_name"));
+                patient.setAge(rs.getInt("age"));
+                patient.setPatientType(rs.getString("patient_type"));
+                patient.setId(rs.getInt("id"));
+                patients.add(patient);
             }
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return users;
+        return patients;
     }
 
     /**
