@@ -4,8 +4,8 @@
  */
 package ui;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Patient;
@@ -156,8 +156,18 @@ public class ViewPanel extends javax.swing.JPanel {
         });
 
         editRowButton.setText("Edit Selected Row");
+        editRowButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editRowButtonActionPerformed(evt);
+            }
+        });
 
         saveButton.setText("Save");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -286,6 +296,131 @@ public class ViewPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_deleteRowButtonActionPerformed
 
+    private void editRowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editRowButtonActionPerformed
+        // TODO add your handling code here:
+        // populate patient data function needs to be called if selected
+        int selectedRowIndex = patientTable.getSelectedRow();
+        
+        // validating if the user has selected a row before hitting edit
+        if(selectedRowIndex == -1){
+            // user has not selected a row
+            JOptionPane.showMessageDialog(this, "Please select the user first!", "Oops, unable to edit!", HEIGHT);
+        } else {
+            try{
+                this.selectedPatient = this.patients.get(selectedRowIndex);
+                populatePatientData(selectedPatient);
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_editRowButtonActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        // TODO add your handling code here:
+        
+        // first  validation for new patient
+        // adding error handling string messages here
+        String popupTitle="", popupMessage="";
+
+        // Using Regex to Validate the User Inputs
+        String regexString = "[(')a-zA-z]*";
+        String numericString = "[0-9]*";
+        Pattern regexNamePattern = Pattern.compile(regexString);
+        Pattern regexAgePattern = Pattern.compile(numericString);
+
+        Boolean errorFlag = false;
+
+        try{
+            // First Name Validations
+            // testing if the first name is blank
+            if(firstNameTextField.getText().isBlank()){
+                // first name is mandatory - popup should say that it is required.
+                popupTitle = updatePopupTitle(popupTitle, "First Name Required!");
+                popupMessage = updatePopupMessage(popupMessage, "Please enter your first name to proceed.");
+                errorFlag = true;
+            } // testing if first name contains any special characters
+            else if((!regexNamePattern.matcher(firstNameTextField.getText()).matches())){
+                // if first name is not blank - it should not have any special characters
+                popupTitle = updatePopupTitle(popupTitle, "Special Characters/ Numbers Not Allowed in First Name");
+                popupMessage = updatePopupMessage(popupMessage, "Sorry, special characters or numbers are not allowed in the First Name.");
+                errorFlag = true;
+            }
+
+            // Last Name Validations
+            // last name cannot contain special characters as well (except for ' for names like D'Souza
+            if(!regexNamePattern.matcher(lastNameTextField.getText()).matches()){
+                popupTitle = updatePopupTitle(popupTitle, "Numbers / Special Characters Not Allowed in Last Name");
+                popupMessage = updatePopupMessage(popupMessage, "Sorry, special characters or numbers are not allowed in the Last Name.");
+                errorFlag = true;
+            }
+
+            // Age validations
+            if(ageTextField.getText().isBlank()){
+                popupTitle = updatePopupTitle(popupTitle, "Age is Required!");
+                popupMessage = updatePopupMessage(popupMessage, "Please enter your age to proceed.");
+                errorFlag = true;
+            }
+            else if(!regexAgePattern.matcher(ageTextField.getText()).matches()){
+                // not a number
+                popupTitle = updatePopupTitle(popupTitle, "Age Should a Numeric Value");
+                popupMessage = updatePopupMessage(popupMessage, "Please enter the value of your age in numeric values between 1 - 130");
+                errorFlag = true;
+            } else if (ageTextField.getText().equals("0")){
+                // age cannot be 0
+                popupTitle = updatePopupTitle(popupTitle, "Age Cannot be 0");
+                popupMessage = updatePopupMessage(popupMessage, "Please enter a valid age between 1 - 130");
+                errorFlag = true;
+            } else if (Integer.parseInt(ageTextField.getText()) > 130){
+                // age greater than 130 is not possible - update the error message
+                popupTitle = updatePopupTitle(popupTitle, "Too Old!!");
+                popupMessage = updatePopupMessage(popupMessage, "The Age you entered is too old to live, please re-check and enter your real age to proceed.");
+                errorFlag = true;
+            }
+
+            // Patient Type Validations
+            if(patientTypeComboBox.getSelectedIndex() == -1){
+                // this means the user has not selected any values --> throw error
+                popupTitle = updatePopupTitle(popupTitle, "Invalid Patient Type!");
+                popupMessage = updatePopupMessage(popupMessage, "Please select a valid patient type from the dropdown to proceed.");
+                errorFlag = true;
+            }
+
+
+            if(popupTitle.equals("") && popupMessage.equals("") && (!errorFlag)){
+                popupTitle = "Edit Successful!";
+                popupMessage = "Your update has been recorded!"+"\n"
+                +"Name: "+firstNameTextField.getText()+" "+lastNameTextField.getText()+"\n"
+                +"Age: "+ageTextField.getText()+"\n"
+                +"Patient Type:"+patientTypeComboBox.getSelectedItem().toString()+"\n";
+
+            }
+            // logging message for debugging
+            System.out.println("Popup Title: "+popupTitle);
+            System.out.println("Popup Body: "+popupMessage);
+            if(errorFlag){
+                JOptionPane.showMessageDialog(this, popupMessage, popupTitle, HEIGHT);
+            } else {
+                // no error
+                // Here the patient record must be initialized and it should go to the View Panel page
+                // getting the values from the text fields into a new patient object
+                Patient newPatient = new Patient();
+                newPatient.setFirstName(firstNameTextField.getText());
+                newPatient.setLastName(lastNameTextField.getText());
+                newPatient.setAge(Integer.parseInt(ageTextField.getText()));
+                newPatient.setPatientType(patientTypeComboBox.getSelectedItem().toString());
+                
+                // here we will update the table
+                DatabaseConnector.editUser(this.selectedPatient, newPatient);
+                JOptionPane.showMessageDialog(this, popupMessage, popupTitle, HEIGHT);
+                clearFields();
+                populatePatientTable();
+                
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Sorry, but there was an error while editing! Please see the below error details:"+"\n"+e, "Oops!", HEIGHT);
+        }
+    }//GEN-LAST:event_saveButtonActionPerformed
+
     // helper function to update most relevant title of the popup title
     public String updatePopupTitle(String popupTitle, String newPopupTitle){
         if (popupTitle.equals("")){
@@ -345,16 +480,14 @@ public class ViewPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error!", HEIGHT);
         }
     }
-    private void populatePatientData() {
+    private void populatePatientData(Patient p1) {
         // This function is resposible to set the fields with the values in the Patient data
 //        System.out.println("Entering populatePatientData function"); // this is for debugging
-        firstNameTextField.setText(selectedPatient.getFirstName());
-        lastNameTextField.setText(selectedPatient.getLastName());
-        ageTextField.setText(Integer.toString(selectedPatient.getAge()));
-
-        
+        firstNameTextField.setText(p1.getFirstName());
+        lastNameTextField.setText(p1.getLastName());
+        ageTextField.setText(Integer.toString(p1.getAge()));
         // setting the combobox
-        patientTypeComboBox.setSelectedItem(selectedPatient.getPatientType());
+        patientTypeComboBox.setSelectedItem(p1.getPatientType());
     }
     
     private void clearFields(){
