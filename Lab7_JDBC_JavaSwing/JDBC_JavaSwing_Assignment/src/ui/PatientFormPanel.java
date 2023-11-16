@@ -307,13 +307,17 @@ public class PatientFormPanel extends javax.swing.JPanel {
                 patient1.setLastName(lastNameTextField.getText());
                 patient1.setAge(Integer.parseInt(ageTextField.getText()));
                 patient1.setPatientType(patientTypeComboBox.getSelectedItem().toString());
-                ViewPanel newViewPanel = new ViewPanel(patient1);
+                
+                // here we add the data into the database.
+                DatabaseConnector.addPatient(patient1);
+                
+                // next we switch over to the view panel
+                ViewPanel newViewPanel = new ViewPanel();
                 this.bottomPanel.add(newViewPanel);
                 CardLayout layout = (CardLayout) this.bottomPanel.getLayout();
                 layout.next(this.bottomPanel);
                 
-                //here we should add the data into the database.
-                DatabaseConnector.addPatient(patient1);
+                
             }
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, "Sorry, but there was an error while submitting! Please see the below error details:"+"\n"+e, "Oops!", HEIGHT);
