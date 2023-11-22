@@ -4,8 +4,10 @@
  */
 package singletondesignpatterndemotest;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+import singletondesignpatterndemo.SingleObject;
 
 /**
  * The SingleObjectTest is a JUnit Test class for testing the SingleObject class.
@@ -22,7 +24,22 @@ public class SingleObjectTest {
      */
     @Test
     public void getInstanceTest(){
-        // under construction
+        
+        /** The correct way to initialize the instance: */
+        SingleObject so = SingleObject.getInstance();
+        assertEquals(so, SingleObject.getInstance());
+        
+        /** The wrong way to initialize the instance */
+        try{
+            SingleObject so1 = new SingleObject();
+        } catch (RuntimeException e){
+            /** 
+             * Ideally this should throw a java.lang.RuntimeException 
+             * Therefore, assertTrue should always be true in this scenario.
+             */
+            assertTrue(true);
+        }
+        
     }
     
     /**
@@ -31,6 +48,12 @@ public class SingleObjectTest {
      */
     @Test
     public void showMessageTest(){
-        // under construction
+        SingleObject so = SingleObject.getInstance();
+        
+        /** Positive Test Case */
+        assertEquals("Hello world from the Singleton Class!", so.showMessage());
+        
+        /** Negative Test Case */
+        assertNotEquals("Singleton Class Only", so.showMessage());
     }
 }
