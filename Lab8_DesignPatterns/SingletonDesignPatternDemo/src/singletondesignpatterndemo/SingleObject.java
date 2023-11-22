@@ -5,7 +5,7 @@
 package singletondesignpatterndemo;
 
 /**
- *
+ * SingleObject is a concrete class which represents the Singleton Design Pattern.
  * @author rishabhkaushick
  */
 public class SingleObject {
