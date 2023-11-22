@@ -5,7 +5,7 @@
 package singletondesignpatterndemo;
 
 /**
- *
+ * The SingletonDesignPatternDemo is a concrete class which shows the functionality of the Singleton Design Pattern.
  * @author rishabhkaushick
  */
 public class SingletonDesignPatternDemo {
@@ -15,7 +15,7 @@ public class SingletonDesignPatternDemo {
      */
     public static void main(String[] args) {
         //illegal construct
-//        SingleObject newObject = new SingleObject();
+        // SingleObject newObject = new SingleObject();
         
         SingleObject object = SingleObject.getInstance();
         object.showMessage();

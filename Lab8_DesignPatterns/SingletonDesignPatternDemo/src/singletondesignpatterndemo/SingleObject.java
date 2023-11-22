@@ -21,7 +21,8 @@ public class SingleObject {
         return instance;
     }
     
-    public void showMessage(){
+    public String showMessage(){
         System.out.println("Hello world from the Singleton Class!");
+        return "Hello world from the Singleton Class!";
     }
 }
