@@ -7,9 +7,10 @@ package facadedesignpatternsdemo;
 /**
  * This is a Shape Interface class.
  * It contains one method draw().
- * Each classes which implement the Shape interface must have their own definition of draw()
+ * Each classes which implement the Shape interface must have their own definition of the draw() method.
  * @author rishabhkaushick
+ * @version 1.1
  */
 public interface Shape {
-    void draw();
+    String draw();
 }
