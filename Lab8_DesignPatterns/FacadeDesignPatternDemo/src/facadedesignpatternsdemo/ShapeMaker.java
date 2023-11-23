@@ -7,6 +7,7 @@ package facadedesignpatternsdemo;
 /**
  * The ShapeMaker is a concrete class which represents the Façade Design Pattern.
  * @author rishabhkaushick
+ * @version 1.1
  */
 public class ShapeMaker {
     
