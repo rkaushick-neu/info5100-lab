@@ -4,12 +4,14 @@
  */
 package facadedesignpatterntest;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import facadedesignpatternsdemo.*;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * The ShapeMakerTest is a JUnit Test class for testing the ShapeMaker class.
  * @author rishabhkaushick
+ * @version 1.1
  */
 public class ShapeMakerTest {
     
@@ -18,16 +20,47 @@ public class ShapeMakerTest {
     
     @Test
     public void drawCircleTest(){
-        // work in progress
+        ShapeMaker shapeMakerFacade = new ShapeMaker();
+        Circle circle = new Circle();
+        /** Positive Test Case */
+        assertEquals(circle.draw(), shapeMakerFacade.drawCircle());
+        assertEquals("Circle::draw()", shapeMakerFacade.drawCircle());
+        
+        /** Negative Test Case */
+        assertNotEquals("Circle", shapeMakerFacade.drawCircle());
+        assertNotEquals("", shapeMakerFacade.drawCircle());
+        assertNotEquals("Circle::draw()", shapeMakerFacade.drawRectangle());
+        assertNotEquals("Circle::draw()", shapeMakerFacade.drawSquare());
     }
     
     @Test
     public void drawRectangleTest(){
-        // work in progress
+        ShapeMaker shapeMakerFacade = new ShapeMaker();
+        Rectangle rectangle = new Rectangle();
+        
+        /** Positive Test Case */
+        assertEquals(rectangle.draw(), shapeMakerFacade.drawRectangle());
+        assertEquals("Rectangle::draw()", shapeMakerFacade.drawRectangle());
+        
+        /** Negative Test Case */
+        assertNotEquals("Rectangle draw()", shapeMakerFacade.drawRectangle());
+        assertNotEquals("", shapeMakerFacade.drawRectangle());
+        assertNotEquals("Rectangle::draw()", shapeMakerFacade.drawCircle());
+        assertNotEquals("Rectangle::draw()", shapeMakerFacade.drawSquare());
     }
     
     @Test
     public void drawSquareTest(){
-        // work in progress
+        ShapeMaker shapeMakerFacade = new ShapeMaker();
+        Square square = new Square();
+        
+        /** Positive Test Case */
+        assertEquals(square.draw(), shapeMakerFacade.drawSquare());
+        assertEquals("Square::draw()", shapeMakerFacade.drawSquare());
+        /** Negative Test Case */
+        assertNotEquals("Square draw()", shapeMakerFacade.drawSquare());
+        assertNotEquals("", shapeMakerFacade.drawSquare());
+        assertNotEquals("Square::draw()", shapeMakerFacade.drawCircle());
+        assertNotEquals("Square::draw()", shapeMakerFacade.drawRectangle());
     }
 }
