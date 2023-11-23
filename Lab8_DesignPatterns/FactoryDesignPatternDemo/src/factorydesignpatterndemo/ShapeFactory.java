@@ -5,11 +5,14 @@
 package factorydesignpatterndemo;
 
 /**
- *
+ * ShapeFactory is a concrete class which represents the Factory Design Pattern.
  * @author rishabhkaushick
  */
 public class ShapeFactory {
-    
+
+    public ShapeFactory() {
+    }
+
     public Shape getShape(String shapeType){
         if(shapeType == null){
             return null;
@@ -18,10 +21,9 @@ public class ShapeFactory {
             return new Circle();
         } else if (shapeType.equalsIgnoreCase("RECTANGLE")){
             return new Rectangle();
-        } else if (shapeType.equalsIgnoreCase("SQAURE")){
+        } else if (shapeType.equalsIgnoreCase("SQUARE")){
             return new Square();
         }
-        
         return null;
     }
 }
