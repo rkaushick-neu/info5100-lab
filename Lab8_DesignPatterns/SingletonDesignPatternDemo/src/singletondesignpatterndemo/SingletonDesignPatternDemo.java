@@ -7,6 +7,7 @@ package singletondesignpatterndemo;
 /**
  * The SingletonDesignPatternDemo is a concrete class which shows the functionality of the Singleton Design Pattern.
  * @author rishabhkaushick
+ * @version 1.0
  */
 public class SingletonDesignPatternDemo {
 

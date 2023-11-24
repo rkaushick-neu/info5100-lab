@@ -12,6 +12,7 @@ import singletondesignpatterndemo.SingleObject;
 /**
  * The SingleObjectTest is a JUnit Test class for testing the SingleObject class.
  * @author rishabhkaushick
+ * @version 1.0
  */
 public class SingleObjectTest {
     

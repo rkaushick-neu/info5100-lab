@@ -7,6 +7,7 @@ package singletondesignpatterndemo;
 /**
  * SingleObject is a concrete class which represents the Singleton Design Pattern.
  * @author rishabhkaushick
+ * @version 1.0
  */
 public class SingleObject {
     
@@ -16,11 +17,20 @@ public class SingleObject {
     // making the constructor private so that it cannot be instantiated
     private SingleObject(){}
     
-    //getting the only object available
+    /**
+     * This is the method through which we get access to the Singleton Object
+     * @version 1.0
+     * @return A singleton object
+     */
     public static SingleObject getInstance(){
         return instance;
     }
     
+    /**
+     * This is a method in which we can write our logic - in this case printing Hello World from the Singleton Class.
+     * @version 1.0
+     * @return String
+     */
     public String showMessage(){
         System.out.println("Hello world from the Singleton Class!");
         return "Hello world from the Singleton Class!";
