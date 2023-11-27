@@ -14,11 +14,16 @@ public class SingleObject {
     // creating an object of the SingleObject
     private static SingleObject instance = new SingleObject();
     
-    // making the constructor private so that it cannot be instantiated
+    /** The constructor is private so that it cannot be instantiated outside this class.
+     * Currently the constructor does not need to perform any actions.
+     * @author rishabhkaushick
+     * @version 1.0
+     */
     private SingleObject(){}
     
     /**
      * This is the method through which we get access to the Singleton Object
+     * @author rishabhkaushick
      * @version 1.0
      * @return A singleton object
      */
@@ -28,6 +33,7 @@ public class SingleObject {
     
     /**
      * This is a method in which we can write our logic - in this case printing Hello World from the Singleton Class.
+     * @author rishabhkaushick
      * @version 1.0
      * @return String
      */

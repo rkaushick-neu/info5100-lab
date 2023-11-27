@@ -12,11 +12,15 @@ package singletondesignpatterndemo;
 public class SingletonDesignPatternDemo {
 
     /**
+     * The main() method, from which Java starts executing code.
      * @param args the command line arguments
+     * @author rishabhkaushick
+     * @version 1.0
      */
     public static void main(String[] args) {
-        //illegal construct
-        // SingleObject newObject = new SingleObject();
+        /** illegal construct:
+         * SingleObject newObject = new SingleObject();
+         */
         
         SingleObject object = SingleObject.getInstance();
         object.showMessage();
