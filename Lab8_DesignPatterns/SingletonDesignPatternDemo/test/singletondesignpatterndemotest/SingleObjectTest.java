@@ -21,6 +21,7 @@ public class SingleObjectTest {
     
     /**
      * The getInstanceTest() method is used to test the getInstance() method from SingleObject class.
+     * @author rishabhkaushick
      * @version 1.0
      */
     @Test
@@ -31,20 +32,24 @@ public class SingleObjectTest {
         assertEquals(so, SingleObject.getInstance());
         
         /** The wrong way to initialize the instance */
-        try{
-            SingleObject so1 = new SingleObject();
-        } catch (RuntimeException e){
-            /** 
-             * Ideally this should throw a java.lang.RuntimeException 
-             * Therefore, assertTrue should always be true in this scenario.
-             */
-            assertTrue(true);
-        }
+        /**
+         * The wrong way to initialize the instance.
+         * try{
+         *   SingleObject so1 = new SingleObject();
+         *   assertFalse(true);
+         * } catch (RuntimeException e){
+         *  If we initialize the variable as above, it will throw a java run-time exception
+         *  Therefore, if we receive the run-time exception, we can say that the Singleton class has been implemented correctly
+         *   assertTrue(true);
+         *   }
+         * 
+         */
         
     }
     
     /**
      * The showMessageTest() method is used to test the showMessage() method from SingleObject class.
+     * @author rishabhkaushick
      * @version 1.0
      */
     @Test
