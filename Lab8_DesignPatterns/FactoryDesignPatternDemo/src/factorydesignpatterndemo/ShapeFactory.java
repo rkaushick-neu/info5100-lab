@@ -22,7 +22,7 @@ public class ShapeFactory {
      * The getShape method takes in an argument shapeType, and returns the respective Shape Object.
      * Legal values for shapeType are - CIRCLE, RECTANGLE, SQUARE.
      * Return values are objects of Circle, Rectangle and Square objects.
-     * @param shapeType
+     * @param shapeType Type of the shape in String format.
      * @return Respective Shape object.
      * @author rishabhkaushick
      * @version 1.0
