@@ -11,6 +11,12 @@ package facadedesignpatternsdemo;
  */
 public class Square implements Shape {
 
+    /**
+     * The draw() method for the Square class returns the String "Square::draw()".
+     * @return String
+     * @author rishabhkaushick
+     * @version 1.1
+     */
     @Override
     public String draw() {
         System.out.println("Square::draw()");

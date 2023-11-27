@@ -11,6 +11,12 @@ package facadedesignpatternsdemo;
  */
 public class Circle implements Shape {
 
+    /**
+     * The draw() method for the Circle class returns the String "Circle::draw()".
+     * @return String
+     * @author rishabhkaushick
+     * @version 1.1
+     */
     @Override
     public String draw() {
         System.out.println("Circle::draw()");

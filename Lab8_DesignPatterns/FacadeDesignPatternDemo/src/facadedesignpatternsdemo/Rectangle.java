@@ -11,10 +11,15 @@ package facadedesignpatternsdemo;
  */
 public class Rectangle implements Shape {
 
+    /**
+     * The draw() method for the Rectangle class returns the String "Rectangle::draw()".
+     * @return String
+     * @author rishabhkaushick
+     * @version 1.1
+     */
     @Override
     public String draw() {
         System.out.println("Rectangle::draw()");
         return "Rectangle::draw()";
-    }
-    
+    }   
 }

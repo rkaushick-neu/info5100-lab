@@ -15,9 +15,17 @@ import org.junit.Test;
  */
 public class ShapeMakerTest {
     
-    public ShapeMakerTest() {
-    }
+    /** Nothing to initialize in the constructor.
+     * @author rishabhkaushick
+     * @version 1.0
+     */
+    public ShapeMakerTest() {}
     
+    /**
+     * The drawCircleTest() method is used to test the drawCircle() method from ShapeMaker class.
+     * @author rishabhkaushick
+     * @version 1.0
+     */
     @Test
     public void drawCircleTest(){
         ShapeMaker shapeMakerFacade = new ShapeMaker();
@@ -33,6 +41,11 @@ public class ShapeMakerTest {
         assertNotEquals("Circle::draw()", shapeMakerFacade.drawSquare());
     }
     
+    /**
+     * The drawRectangleTest() method is used to test the drawRectangle() method from ShapeMaker class.
+     * @author rishabhkaushick
+     * @version 1.0
+     */
     @Test
     public void drawRectangleTest(){
         ShapeMaker shapeMakerFacade = new ShapeMaker();
@@ -49,6 +62,11 @@ public class ShapeMakerTest {
         assertNotEquals("Rectangle::draw()", shapeMakerFacade.drawSquare());
     }
     
+    /**
+     * The drawSquareTest() method is used to test the drawSquare() method from ShapeMaker class.
+     * @author rishabhkaushick
+     * @version 1.0
+     */
     @Test
     public void drawSquareTest(){
         ShapeMaker shapeMakerFacade = new ShapeMaker();
