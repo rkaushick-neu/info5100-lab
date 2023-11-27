@@ -11,16 +11,21 @@ import org.junit.Test;
 /**
  * The ShapeFactoryTest is a JUnit Test class for testing the ShapeFactory class.
  * @author rishabhkaushick
+ * @version 1.0
  */
 public class ShapeFactoryTest {
     
-    public ShapeFactoryTest() {
-    }
+    /** Nothing to initialize in the constructor.
+     * @author rishabhkaushick
+     * @version 1.0
+     */
+    public ShapeFactoryTest() {}
     
     /**
      * The getShapeTest() method is used to test the getShape() method from ShapeFactory class.
      * Since the Factory method returns a new object each time, we are testing by checking the data-types of the objects.
      * This can be done using the getClass() method.
+     * @author rishabhkaushick
      * @version 1.0
      */
     @Test

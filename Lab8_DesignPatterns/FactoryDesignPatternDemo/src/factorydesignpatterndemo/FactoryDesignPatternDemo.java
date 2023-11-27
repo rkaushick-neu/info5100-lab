@@ -7,11 +7,15 @@ package factorydesignpatterndemo;
 /**
  * The FactoryDesignPatternDemo is a concrete class which contains the main() method to run the project.
  * @author rishabhkaushick
+ * @version 1.0
  */
 public class FactoryDesignPatternDemo {
 
     /**
+     * The main() method, from which Java starts executing code.
      * @param args the command line arguments
+     * @author rishabhkaushick
+     * @version 1.0
      */
     public static void main(String[] args) {
         // TODO code application logic here

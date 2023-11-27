@@ -7,12 +7,26 @@ package factorydesignpatterndemo;
 /**
  * ShapeFactory is a concrete class which represents the Factory Design Pattern.
  * @author rishabhkaushick
+ * @version 1.0
  */
 public class ShapeFactory {
 
-    public ShapeFactory() {
-    }
+    /** 
+     * Nothing to initialize in the ShapeFactory constructor.
+     * @author rishabhkaushick
+     * @version 1.0
+     */
+    public ShapeFactory() {}
 
+    /**
+     * The getShape method takes in an argument shapeType, and returns the respective Shape Object.
+     * Legal values for shapeType are - CIRCLE, RECTANGLE, SQUARE.
+     * Return values are objects of Circle, Rectangle and Square objects.
+     * @param shapeType
+     * @return Respective Shape object.
+     * @author rishabhkaushick
+     * @version 1.0
+     */
     public Shape getShape(String shapeType){
         if(shapeType == null){
             return null;
