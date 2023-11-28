@@ -16,6 +16,5 @@ show tables;
 -- Returns the patient table
 
 SELECT * FROM patient;
--- Currently there is no data present in the table
 
 -- I will insert values into the patient table from the application
