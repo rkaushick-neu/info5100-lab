@@ -6,6 +6,7 @@ package moonroverstatepatterntest;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import moonroverstatepatterndemo.*;
 
 /**
  *
@@ -22,4 +23,16 @@ public class AtRestStateTest {
     //
     // @Test
     // public void hello() {}
+    
+    @Test
+    public void pressLeftPedalOnceTest(){
+        AtRestState restState = new AtRestState();
+        MoonRoverContext moonRoverContext = new MoonRoverContext();
+        assertEquals("Accelerate Forward!", restState.pressLeftPedalOnce(moonRoverContext));
+    }
+    
+    @Test
+    public void pressLeftPedalFor3SecTest(){
+        
+    }
 }
