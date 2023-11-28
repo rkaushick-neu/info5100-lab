@@ -16,6 +16,17 @@ public class MoonRoverStatePatternDemo {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        /** Creating a moon rover instance */
+        MoonRoverContext moonRover = new MoonRoverContext();
+        
+        /** This shows that the moon rover is currently at rest. */
+        System.out.println(moonRover.getBuggyState().toString());
+        
+        /** Pressing the left pedal once. */
+        moonRover.getBuggyState().pressLeftPedalOnce(moonRover);
+        System.out.println(moonRover.getBuggyState().toString());
+        
     }
     
 }

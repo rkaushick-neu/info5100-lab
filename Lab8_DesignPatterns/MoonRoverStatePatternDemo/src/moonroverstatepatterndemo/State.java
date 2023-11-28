@@ -10,9 +10,9 @@ package moonroverstatepatterndemo;
  * @version 1.0
  */
 public interface State {
-    public String pressLeftPedalOnce(Context buggyContext);
-    public String pressLeftPedalFor3Sec(Context buggyContext);
-    public String pressRightPedalOnce(Context buggyContext);    
-    public String pressRightPedalFor3Sec(Context buggyContext);
+    public String pressLeftPedalOnce(MoonRoverContext buggyContext);
+    public String pressLeftPedalFor3Sec(MoonRoverContext buggyContext);
+    public String pressRightPedalOnce(MoonRoverContext buggyContext);    
+    public String pressRightPedalFor3Sec(MoonRoverContext buggyContext);
     
 }

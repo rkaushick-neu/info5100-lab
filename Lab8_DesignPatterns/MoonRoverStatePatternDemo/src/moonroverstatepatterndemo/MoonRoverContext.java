@@ -5,33 +5,34 @@
 package moonroverstatepatterndemo;
 
 /**
- * The Context class stores the state in which the buggy is in currently.
+ * The MoonRoverContext class stores the state in which the buggy is in currently.
  * @author rishabhkaushick
  * @version 1.0
  */
-class Context {
-    /** The buggyState class variable is the one in which we store the state of the buggy. */
-    State buggyState;
+public class MoonRoverContext {
+    /** The moonRoverState class variable is the one in which we store the state of the moon rover. */
+    State moonRoverState;
     
     /**
      * Non-parameterized constructor - Nothing to do here.
      */
-    public Context(){
+    public MoonRoverContext(){
+        this.moonRoverState = new AtRestState();
     }
     /**
-     * Parameterized constructor to set the value of buggy state.
-     * @param buggyState The current state of the buggy.
+     * Parameterized constructor to set the value of moon rover state.
+     * @param moonRoverState The current state of the moon rover.
      */
-    public Context(State buggyState) {
-        this.buggyState = buggyState;
+    public MoonRoverContext(State moonRoverState) {
+        this.moonRoverState = moonRoverState;
     }
 
     public State getBuggyState() {
-        return buggyState;
+        return moonRoverState;
     }
 
-    public void setBuggyState(State buggyState) {
-        this.buggyState = buggyState;
+    public void setBuggyState(State moonRoverState) {
+        this.moonRoverState = moonRoverState;
     }
     
     
